@@ -1,0 +1,1 @@
+remove fetch or jquery

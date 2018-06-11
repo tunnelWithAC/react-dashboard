@@ -12,6 +12,9 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   FormControl: {
     width: 300
+  },
+  xsFormControl: {
+    width: 250
   }
 })
 
@@ -29,10 +32,8 @@ export default withStyles(styles)(class extends Component {
     }
   }
 
-  componentWillReceiveProps({ exercise }) {
-    this.setState({
-      ...exercise
-    })
+  static getDerivedStateFromProps({ exercise }) {
+    return exercise || null
   }
 
   handleChange = name => ({ target: { value } }) =>

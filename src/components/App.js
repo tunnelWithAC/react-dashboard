@@ -90,6 +90,12 @@ class App extends Component {
         onExerciseCreate={this.handleExerciseCreate}
       />
 
+      <Footer
+        category={category}
+        muscles={muscles}
+        onSelect={this.handleCategorySelect}
+      />
+
       <Exercises
         editMode={editMode}
         exercise={exercise}
@@ -102,11 +108,7 @@ class App extends Component {
         onEdit={this.handleExerciseEdit}
       />
 
-      <Footer
-        category={category}
-        muscles={muscles}
-        onSelect={this.handleCategorySelect}
-      />
+
     </Fragment>
   }
 }

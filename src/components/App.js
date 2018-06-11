@@ -21,12 +21,9 @@ class App extends Component {
       [category]: []
     }), {})
 
-    console.log(muscles, initExercises)
-
     return Object.entries(
       this.state.exercises.reduce((exercises, exercise) => {
         const { muscles } = exercise;
-
         /* Old way
         exercises[muscles] =  exercises[muscles]
           ? [...exercises[muscles], exercise]
@@ -46,7 +43,8 @@ class App extends Component {
 
   handleExerciseSelect = id =>
     this.setState(({ exercises }) => ({
-      exercise: exercises.find(ex => ex.id === id)
+      exercise: exercises.find(ex => ex.id === id),
+      editMode: false
     }));
 
   handleExerciseCreate = exercise =>
@@ -59,7 +57,9 @@ class App extends Component {
 
   handleExerciseDelete = id =>
     this.setState(({ exercises }) =>  ({
-      exercises: exercises.filter(ex => ex.id !== id)
+      exercises: exercises.filter(ex => ex.id !== id),
+      editMode: false,
+      exercise: {}
     }))
 
 
@@ -69,13 +69,14 @@ class App extends Component {
       editMode: true
     }))
 
-    handleExerciseEdit = exercise =>
-      this.setState(({ exercises }) => ({
-        exercises: [
-          ...exercises.filter(ex => ex.id !== exercise.id),
-          exercise
-        ]
-      }))
+  handleExerciseEdit = exercise =>
+    this.setState(({ exercises }) => ({
+      exercises: [
+        ...exercises.filter(ex => ex.id !== exercise.id),
+        exercise
+      ],
+      exercise
+    }))
 
   render() {
     const exercises = this.getExercisesByMuscles(),

@@ -18,16 +18,25 @@ import Form from './Form';
 
 export default class extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      open: false
-    };
+  state = {
+    open: false
+  }
+
+  handleToggle = () => {
+    this.setState({
+      open: !this.state.open
+    })
+  }
+
+  handleFormSubmit = exercise => {
+    this.handleToggle()
+
+    this.props.onCreate(exercise)
   }
 
   render() {
     const { open } = this.state,
-          { muscles, onCreate } = this.props
+          { muscles } = this.props
 
 
     return <Fragment>
@@ -39,14 +48,16 @@ export default class extends Component {
         open={open}
         onClose={this.handleToggle}
       >
-          <DialogTitle id="form-dialog-title">Create a new exercise</DialogTitle>
+          <DialogTitle>
+            Create a new exercise
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
               Please fill out the form below
             </DialogContentText>
             <Form
               muscles={muscles}
-              onSubmit={onCreate}
+              onSubmit={this.handleFormSubmit}
             />
           </DialogContent>
         </Dialog>

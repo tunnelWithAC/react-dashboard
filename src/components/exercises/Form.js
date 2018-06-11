@@ -29,9 +29,9 @@ export default withStyles(styles)(class extends Component {
     }
   }
 
-  handleToggle = () => {
+  componentWillReceiveProps({ exercise }) {
     this.setState({
-      open: !this.state.open
+      ...exercise
     })
   }
 
@@ -41,27 +41,17 @@ export default withStyles(styles)(class extends Component {
     })
 
   handleSubmit = () => {
-    // TODO: Validate
-    const { exercise } = this.state
-
     this.props.onSubmit({
-      ...exercise,
-      id: exercise.title.toLocaleLowerCase().replace(/ /g, '-')
+      id: this.state.title.toLocaleLowerCase().replace(/ /g, '-'),
+      ...this.state
     })
 
-    this.setState({
-      open: false,
-      exercise: {
-        title: '',
-        description: '',
-        muscles: ''
-      }
-    })
+    this.setState(this.getInitState())
   }
 
   render() {
     const { title, description, muscles } = this.state,
-          { classes, muscles: categories } = this.props
+          { classes, exercise, muscles: categories } = this.props
 
     return <Fragment>
       <form>
@@ -104,7 +94,7 @@ export default withStyles(styles)(class extends Component {
           variant="raised"
           onClick={this.handleSubmit}
         >
-          Create
+          {exercise ? 'Edit' : 'Create' }
         </Button>
       </form>
     </Fragment>
